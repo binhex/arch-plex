@@ -33,9 +33,11 @@ EXPOSE 32400
 
 # change owner
 RUN chown -R nobody:users /opt/plexmediaserver
+RUN chown -R nobody:users /etc/conf.d/
 
 # set permissions
 RUN chmod -R 775 /opt/plexmediaserver
+RUN chmod -R 775 /etc/conf.d/
 
 # add conf file
 ###############
