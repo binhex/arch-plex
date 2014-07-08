@@ -10,10 +10,10 @@ RUN pacman -Sy --noconfirm
 # run packer to install application
 RUN packer -S plexmediaserver --noconfirm
 
-# add in custom plex configuration file
+# add in custom env variable config file
 ADD plexmediaserver /etc/conf.d/plexmediaserver
 
-# force pms to run as foreground task
+# force process to run as foreground task
 RUN sed -i 's/Plex\\ Media\\ Server &/Plex\\ Media\\ Server/g' /opt/plexmediaserver/start_pms
 
 # docker settings
@@ -33,11 +33,11 @@ EXPOSE 32400
 
 # change owner
 RUN chown -R nobody:users /opt/plexmediaserver
-RUN chown -R nobody:users /etc/conf.d/
+RUN chown -R nobody:users /etc/conf.d/plexmediaserver
 
 # set permissions
 RUN chmod -R 775 /opt/plexmediaserver
-RUN chmod -R 775 /etc/conf.d/
+RUN chmod -R 775 /etc/conf.d/plexmediaserver
 
 # add conf file
 ###############
