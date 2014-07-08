@@ -14,7 +14,7 @@ RUN packer -S plexmediaserver --noconfirm
 ADD plexmediaserver /etc/conf.d/plexmediaserver
 
 # force process to run as foreground task and remove su
-sed -i 's/cd ${PLEX_MEDIA_SERVER_HOME}.*/cd \${PLEX_MEDIA_SERVER_HOME}; \"\${PLEX_MEDIA_SERVER_HOME}\/Plex\\ Media\\ Server\"/g' /opt/plexmediaserver/start_pms
+RUN sed -i 's/cd ${PLEX_MEDIA_SERVER_HOME}.*/cd \${PLEX_MEDIA_SERVER_HOME}; \"\${PLEX_MEDIA_SERVER_HOME}\/Plex\\ Media\\ Server\"/g' /opt/plexmediaserver/start_pms
 
 # docker settings
 #################
