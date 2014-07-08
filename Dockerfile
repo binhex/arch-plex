@@ -10,8 +10,10 @@ RUN pacman -Sy --noconfirm
 # run packer to install application
 RUN packer -S plexmediaserver --noconfirm
 
-# add in custom plex configuration file
-ADD plexmediaserver /etc/conf.d/plexmediaserver
+# set env variables for plex
+RUN sed -i 's/export PLEX_MEDIA_SERVER_USER=plex/export PLEX_MEDIA_SERVER_USER=nobody/g' /opt/plexmediaserver/start_pms
+RUN sed -i 's/export PLEX_MEDIA_SERVER_TMPDIR=\/tmp/export PLEX_MEDIA_SERVER_TMPDIR=\/config\/tmp/g' /opt/plexmediaserver/start_pms
+RUN sed -i 's/export PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="${PLEX_MEDIA_SERVER_HOME}\/Library\/Application Support"/export PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="\/config\/Library\/Application Support"/g' /opt/plexmediaserver/start_pms
 
 # force pms to run as foreground task
 RUN sed -i 's/Plex\\ Media\\ Server &/Plex\\ Media\\ Server/g' /opt/plexmediaserver/start_pms
@@ -33,11 +35,9 @@ EXPOSE 32400
 
 # change owner
 RUN chown -R nobody:users /opt/plexmediaserver
-RUN chown -R nobody:users /etc/conf.d/
 
 # set permissions
 RUN chmod -R 775 /opt/plexmediaserver
-RUN chmod -R 775 /etc/conf.d/
 
 # add conf file
 ###############
