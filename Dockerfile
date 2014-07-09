@@ -14,7 +14,7 @@ RUN packer -S plexmediaserver --noconfirm
 ADD plexmediaserver /etc/conf.d/plexmediaserver
 
 # force process to run as foreground task
-RUN sed -i 's/Plex\\ Media\\ Server &/Plex\\ Media\\ Server/g'
+RUN sed -i 's/Plex\\ Media\\ Server &/Plex\\ Media\\ Server/g' /opt/plexmediaserver/start_pms
 
 # docker settings
 #################
