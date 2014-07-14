@@ -32,17 +32,26 @@ EXPOSE 32400
 #################
 
 # change owner
-RUN chown -R nobody:users /opt/plexmediaserver
-RUN chown -R nobody:users /etc/conf.d/plexmediaserver
+#RUN chown -R nobody:users /opt/plexmediaserver
+#RUN chown -R nobody:users /etc/conf.d/plexmediaserver
 
 # set permissions
-RUN chmod -R 775 /opt/plexmediaserver
-RUN chmod -R 775 /etc/conf.d/plexmediaserver
+#RUN chmod -R 775 /opt/plexmediaserver
+#RUN chmod -R 775 /etc/conf.d/plexmediaserver
 
 # add conf file
 ###############
 
 ADD plexmediaserver.conf /etc/supervisor/conf.d/plexmediaserver.conf
+
+# cleanup
+#########
+
+# completely empty pacman cache folder
+RUN pacman -Scc --noconfirm
+
+# remove temporary files
+RUN rm -rf /tmp/*
 
 # run supervisor
 ################

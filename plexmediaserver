@@ -1,5 +1,5 @@
 # the user plex runs as 
-export PLEX_MEDIA_SERVER_USER=nobody
+export PLEX_MEDIA_SERVER_USER=plex
 
 # the home directory for plex
 export PLEX_MEDIA_SERVER_HOME=/opt/plexmediaserver
