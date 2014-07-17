@@ -1,9 +1,9 @@
-plex
-====
+Plex Media Server
+=================
+
+Plex Media Server - https://plex.tv/
 
 Latest stable Plex Media Server release from Arch Linux AUR using Packer to compile.
-
-This is a Dockerfile for Plex Media Server - https://plex.tv/
 
 **Pull image**
 
