@@ -14,7 +14,7 @@ docker pull binhex/arch-plex
 **Run container**
 
 ```
-docker run -d -p 32400:32400 --name=<container name> -v <path for media files>:/media -v <path for config files>:/config -v /etc/localtime:/etc/localtime:ro binhex/arch-plex
+docker run -d --net="host" --name=<container name> -v <path for media files>:/media -v <path for config files>:/config -v /etc/localtime:/etc/localtime:ro binhex/arch-plex
 ```
 
 Please replace all user variables in the above command defined by <> with the correct values.
@@ -24,3 +24,5 @@ Please replace all user variables in the above command defined by <> with the co
 ```
 http://<host ip>:32400
 ```
+
+Note: You cannot specify the port this docker container uses, it requires full access to the hosts nic and thus the -p flag is ignored.
