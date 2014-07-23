@@ -25,9 +25,6 @@ VOLUME /config
 # map /media to host defined media path (used to read/write to media library)
 VOLUME /media
 
-# expose port for http
-EXPOSE 32400
-
 # add conf file
 ###############
 
@@ -37,10 +34,10 @@ ADD plexmediaserver.conf /etc/supervisor/conf.d/plexmediaserver.conf
 #################
 
 # change owner
-#RUN chown -R plex:plex /opt/plexmediaserver /etc/conf.d/plexmediaserver
+RUN chown -R nobody:users /opt/plexmediaserver /etc/conf.d/plexmediaserver
 
 # set permissions
-#RUN chmod -R 775 /opt/plexmediaserver /etc/conf.d/plexmediaserver
+RUN chmod -R 775 /opt/plexmediaserver /etc/conf.d/plexmediaserver
 
 # cleanup
 #########

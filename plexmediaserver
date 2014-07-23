@@ -1,5 +1,5 @@
 # the user plex runs as 
-PLEX_MEDIA_SERVER_USER=plex
+PLEX_MEDIA_SERVER_USER=nobody
 
 # the home directory for plex
 PLEX_MEDIA_SERVER_HOME=/opt/plexmediaserver
@@ -18,4 +18,4 @@ PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="/opt/plexmediaserver/Library/Applicat
 
 # Logs live in /opt/plexmediaserver/Library/Application Support/Plex Media Server/Logs
 # Uncomment this to send to syslog-ng
-PLEX_MEDIA_SERVER_USE_SYSLOG=true
+#PLEX_MEDIA_SERVER_USE_SYSLOG=true
