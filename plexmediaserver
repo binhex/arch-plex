@@ -1,21 +1,21 @@
 # the user plex runs as 
-export PLEX_MEDIA_SERVER_USER=plex
+PLEX_MEDIA_SERVER_USER=plex
 
 # the home directory for plex
-export PLEX_MEDIA_SERVER_HOME=/opt/plexmediaserver
+PLEX_MEDIA_SERVER_HOME=/opt/plexmediaserver
 
 # the number of plugins that can run at the same time
-export PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=6
+PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=6
 
 # ulimit -s $PLEX_MEDIA_SERVER_MAX_STACK_SIZE
-export PLEX_MEDIA_SERVER_MAX_STACK_SIZE=3000
+PLEX_MEDIA_SERVER_MAX_STACK_SIZE=3000
 
 # where the mediaserver should store the transcodes
-export PLEX_MEDIA_SERVER_TMPDIR=/var/tmp
+PLEX_MEDIA_SERVER_TMPDIR=/var/tmp
 
 # Change this to be what you like
-export PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="/config/Library/Application Support"
+PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="/config/Library/Application Support"
 
 # Logs live in /opt/plexmediaserver/Library/Application Support/Plex Media Server/Logs
 # Uncomment this to send to syslog-ng
-#export PLEX_MEDIA_SERVER_USE_SYSLOG=true
+PLEX_MEDIA_SERVER_USE_SYSLOG=true

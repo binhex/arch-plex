@@ -28,19 +28,19 @@ VOLUME /media
 # expose port for http
 EXPOSE 32400
 
-# set permissions
-#################
-
-# change owner
-#RUN chown -R nobody:users /opt/plexmediaserver /etc/conf.d/plexmediaserver
-
-# set permissions
-#RUN chmod -R 775 /opt/plexmediaserver /etc/conf.d/plexmediaserver
-
 # add conf file
 ###############
 
 ADD plexmediaserver.conf /etc/supervisor/conf.d/plexmediaserver.conf
+
+# set permissions
+#################
+
+# change owner
+#RUN chown -R plex:plex /opt/plexmediaserver /etc/conf.d/plexmediaserver
+
+# set permissions
+#RUN chmod -R 775 /opt/plexmediaserver /etc/conf.d/plexmediaserver
 
 # cleanup
 #########
