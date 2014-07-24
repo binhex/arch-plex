@@ -13,8 +13,11 @@ RUN packer -S plexmediaserver --noconfirm
 # add in custom env variable config file
 ADD plexmediaserver /etc/conf.d/plexmediaserver
 
-# force process to run as foreground task, remove su command
+# force process to run as foreground task, remove su command as hard set to user nobody
 RUN sed -i 's/cd \${PLEX_MEDIA_SERVER_HOME}; su -c \"\${PLEX_MEDIA_SERVER_HOME}\/Plex\\ Media\\ Server \&\" \${PLEX_MEDIA_SERVER_USER}/cd \${PLEX_MEDIA_SERVER_HOME}; \"\${PLEX_MEDIA_SERVER_HOME}\/Plex Media Server\"/g' /opt/plexmediaserver/start_pms
+
+# copy prerun bash shell script (copies default library to /config)
+ADD prerun.sh /etc/supervisor/conf.d/prerun.sh
 
 # docker settings
 #################
@@ -25,11 +28,6 @@ VOLUME /config
 # map /media to host defined media path (used to read/write to media library)
 VOLUME /media
 
-# add conf file
-###############
-
-ADD plexmediaserver.conf /etc/supervisor/conf.d/plexmediaserver.conf
-
 # set permissions
 #################
 
@@ -37,7 +35,7 @@ ADD plexmediaserver.conf /etc/supervisor/conf.d/plexmediaserver.conf
 RUN chown -R nobody:users /opt/plexmediaserver /etc/conf.d/plexmediaserver
 
 # set permissions
-RUN chmod -R 775 /opt/plexmediaserver /etc/conf.d/plexmediaserver
+RUN chmod -R 775 /opt/plexmediaserver /etc/conf.d/plexmediaserver /etc/supervisor/conf.d/prerun.sh
 
 # cleanup
 #########
@@ -50,6 +48,9 @@ RUN rm -rf /tmp/*
 
 # run supervisor
 ################
+
+# add supervisor file for application
+ADD plexmediaserver.conf /etc/supervisor/conf.d/plexmediaserver.conf
 
 # run supervisor
 CMD ["supervisord", "-c", "/etc/supervisor.conf", "-n"]
