@@ -9,6 +9,6 @@ else
 	
 	# copy default library to /config and set owner
 	cp -R /opt/plexmediaserver/Library /config
-	chown -R nobody:users /config
+	chown -R nobody:users /config/Library
 	
 fi
