@@ -16,9 +16,6 @@ ADD plexmediaserver /etc/conf.d/plexmediaserver
 # force process to run as foreground task, remove su command as hard set to user nobody
 RUN sed -i 's/cd \${PLEX_MEDIA_SERVER_HOME}; su -c \"\${PLEX_MEDIA_SERVER_HOME}\/Plex\\ Media\\ Server \&\" \${PLEX_MEDIA_SERVER_USER}/cd \${PLEX_MEDIA_SERVER_HOME}; \"\${PLEX_MEDIA_SERVER_HOME}\/Plex Media Server\"/g' /opt/plexmediaserver/start_pms
 
-# copy prerun bash shell script (copies default library to /config)
-ADD prerun.sh /etc/supervisor/conf.d/prerun.sh
-
 # docker settings
 #################
 
@@ -35,7 +32,7 @@ VOLUME /media
 RUN chown -R nobody:users /opt/plexmediaserver /etc/conf.d/plexmediaserver
 
 # set permissions
-RUN chmod -R 775 /opt/plexmediaserver /etc/conf.d/plexmediaserver /etc/supervisor/conf.d/prerun.sh
+RUN chmod -R 775 /opt/plexmediaserver /etc/conf.d/plexmediaserver
 
 # cleanup
 #########

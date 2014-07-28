@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # the user plex runs as 
 PLEX_MEDIA_SERVER_USER=nobody
 
@@ -19,3 +21,15 @@ PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="/config/Library/Application Support"
 # Logs live in /opt/plexmediaserver/Library/Application Support/Plex Media Server/Logs
 # Uncomment this to send to syslog-ng
 #PLEX_MEDIA_SERVER_USE_SYSLOG=true
+
+# check if library exists on /config, if not copy default library
+if [ -d "/config/Library" ]; then
+
+	echo "library exists"
+	
+else
+	
+	# copy default library to /config
+	cp -R /opt/plexmediaserver/Library /config
+	
+fi
