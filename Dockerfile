@@ -1,4 +1,4 @@
-FROM binhex/arch-base
+FROM binhex/arch-base:2014091500
 MAINTAINER binhex
 
 # install application
