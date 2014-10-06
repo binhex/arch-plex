@@ -37,9 +37,6 @@ RUN chmod -R 775 /opt/plexmediaserver /etc/conf.d/plexmediaserver
 # cleanup
 #########
 
-# remove base dev tools - used for AUR package compilation
-RUN pacman -Rns base-devel --noconfirm
-
 # completely empty pacman cache folder
 RUN pacman -Scc --noconfirm
 
