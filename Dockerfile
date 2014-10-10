@@ -1,20 +1,38 @@
-FROM binhex/arch-base:2014100603
+FROM binhex/arch-base:test
 MAINTAINER binhex
 
-# install application
-#####################
+# additional files
+##################
 
-# update package databases for arch
-RUN pacman -Sy --noconfirm
-
-# run packer to install application
-RUN packer -S plexmediaserver --noconfirm
+# download packer from aur
+ADD https://aur.archlinux.org/packages/pa/packer/packer.tar.gz /root/packer.tar.gz
 
 # add in custom env variable config file
 ADD plexmediaserver /etc/conf.d/plexmediaserver
 
-# force process to run as foreground task, remove su command as hard set to user nobody
-RUN sed -i 's/cd \${PLEX_MEDIA_SERVER_HOME}; su -c \"\${PLEX_MEDIA_SERVER_HOME}\/Plex\\ Media\\ Server \&\" \${PLEX_MEDIA_SERVER_USER}/cd \${PLEX_MEDIA_SERVER_HOME}; \"\${PLEX_MEDIA_SERVER_HOME}\/Plex Media Server\"/g' /opt/plexmediaserver/start_pms
+# add supervisor file for application
+ADD plexmediaserver.conf /etc/supervisor/conf.d/plexmediaserver.conf
+
+# install packer
+################
+
+# install base devel, compile packer and install, clean cache, root and tmp folders
+RUN pacman -S --needed base-devel --noconfirm && \
+	cd /root && \
+	tar -xzf packer.tar.gz && \
+	cd /root/packer && \
+	makepkg -s --asroot --noconfirm && \
+	pacman -U /root/packer/packer*.tar.xz --noconfirm && \
+	packer -S plexmediaserver --noconfirm && \
+	pacman -Ru base-devel --noconfirm && \
+	pacman -Scc --noconfirm && \
+	chown -R nobody:users /opt/plexmediaserver /etc/conf.d/plexmediaserver && \
+	chmod -R 775 /opt/plexmediaserver /etc/conf.d/plexmediaserver && \	
+	rm -rf /archlinux/usr/share/locale && \
+	rm -rf /archlinux/usr/share/man && \
+	rm -rf /root/* && \
+	rm -rf /tmp/* && \
+	sed -i 's/cd \${PLEX_MEDIA_SERVER_HOME}; su -c \"\${PLEX_MEDIA_SERVER_HOME}\/Plex\\ Media\\ Server \&\" \${PLEX_MEDIA_SERVER_USER}/cd \${PLEX_MEDIA_SERVER_HOME}; \"\${PLEX_MEDIA_SERVER_HOME}\/Plex Media Server\"/g' /opt/plexmediaserver/start_pms
 
 # docker settings
 #################
@@ -25,32 +43,8 @@ VOLUME /config
 # map /media to host defined media path (used to read/write to media library)
 VOLUME /media
 
-# set permissions
-#################
-
-# change owner
-RUN chown -R nobody:users /opt/plexmediaserver /etc/conf.d/plexmediaserver
-
-# set permissions
-RUN chmod -R 775 /opt/plexmediaserver /etc/conf.d/plexmediaserver
-
-# cleanup
-#########
-
-# remove unneeded apps from base-devel group - used for AUR package compilation
-RUN pacman -Ru base-devel --noconfirm
-
-# completely empty pacman cache folder
-RUN pacman -Scc --noconfirm
-
-# remove temporary files
-RUN rm -rf /tmp/*
-
 # run supervisor
 ################
-
-# add supervisor file for application
-ADD plexmediaserver.conf /etc/supervisor/conf.d/plexmediaserver.conf
 
 # run supervisor
 CMD ["supervisord", "-c", "/etc/supervisor.conf", "-n"]
