@@ -1,4 +1,4 @@
-FROM binhex/arch-base:test
+FROM binhex/arch-base:2014101300
 MAINTAINER binhex
 
 # additional files
@@ -7,16 +7,16 @@ MAINTAINER binhex
 # download packer from aur
 ADD https://aur.archlinux.org/packages/pa/packer/packer.tar.gz /root/packer.tar.gz
 
-# add in custom env variable config file
+# add in custom config file
 ADD plexmediaserver /etc/conf.d/plexmediaserver
 
 # add supervisor file for application
 ADD plexmediaserver.conf /etc/supervisor/conf.d/plexmediaserver.conf
 
-# install packer
-################
+# install app
+#############
 
-# install base devel, compile packer and install, clean cache, root and tmp folders
+# install base devel, install app using packer, set perms, cleanup
 RUN pacman -S --needed base-devel --noconfirm && \
 	cd /root && \
 	tar -xzf packer.tar.gz && \
@@ -31,8 +31,10 @@ RUN pacman -S --needed base-devel --noconfirm && \
 	rm -rf /archlinux/usr/share/locale && \
 	rm -rf /archlinux/usr/share/man && \
 	rm -rf /root/* && \
-	rm -rf /tmp/* && \
-	sed -i 's/cd \${PLEX_MEDIA_SERVER_HOME}; su -c \"\${PLEX_MEDIA_SERVER_HOME}\/Plex\\ Media\\ Server \&\" \${PLEX_MEDIA_SERVER_USER}/cd \${PLEX_MEDIA_SERVER_HOME}; \"\${PLEX_MEDIA_SERVER_HOME}\/Plex Media Server\"/g' /opt/plexmediaserver/start_pms
+	rm -rf /tmp/*
+	
+# customize app config file
+RUN sed -i 's/cd \${PLEX_MEDIA_SERVER_HOME}; su -c \"\${PLEX_MEDIA_SERVER_HOME}\/Plex\\ Media\\ Server \&\" \${PLEX_MEDIA_SERVER_USER}/cd \${PLEX_MEDIA_SERVER_HOME}; \"\${PLEX_MEDIA_SERVER_HOME}\/Plex Media Server\"/g' /opt/plexmediaserver/start_pms
 
 # docker settings
 #################
