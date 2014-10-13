@@ -17,7 +17,8 @@ ADD plexmediaserver.conf /etc/supervisor/conf.d/plexmediaserver.conf
 #############
 
 # install base devel, install app using packer, set perms, cleanup
-RUN pacman -S --needed base-devel --noconfirm && \
+RUN pacman -Sy --noconfirm && \
+	pacman -S --needed base-devel --noconfirm && \
 	cd /root && \
 	tar -xzf packer.tar.gz && \
 	cd /root/packer && \
