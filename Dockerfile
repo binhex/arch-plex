@@ -7,9 +7,6 @@ MAINTAINER binhex
 # download packer from aur
 ADD https://aur.archlinux.org/packages/pa/packer/packer.tar.gz /root/packer.tar.gz
 
-# add in custom config file
-ADD plexmediaserver /etc/conf.d/plexmediaserver
-
 # add supervisor file for application
 ADD plexmediaserver.conf /etc/supervisor/conf.d/plexmediaserver.conf
 
@@ -36,6 +33,9 @@ RUN pacman -Sy --noconfirm && \
 	
 # customize app config file
 RUN sed -i 's/cd \${PLEX_MEDIA_SERVER_HOME}; su -c \"\${PLEX_MEDIA_SERVER_HOME}\/Plex\\ Media\\ Server \&\" \${PLEX_MEDIA_SERVER_USER}/cd \${PLEX_MEDIA_SERVER_HOME}; \"\${PLEX_MEDIA_SERVER_HOME}\/Plex Media Server\"/g' /opt/plexmediaserver/start_pms
+
+# add in custom config file
+ADD plexmediaserver /etc/conf.d/plexmediaserver
 
 # docker settings
 #################
