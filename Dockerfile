@@ -21,7 +21,7 @@ RUN pacman -Sy --noconfirm && \
 	cd /root/packer && \
 	makepkg -s --asroot --noconfirm && \
 	pacman -U /root/packer/packer*.tar.xz --noconfirm && \
-	packer -S plexmediaserver --noconfirm && \
+	packer -S plex-media-server --noconfirm && \
 	pacman -Ru base-devel --noconfirm && \
 	pacman -Scc --noconfirm && \
 	chown -R nobody:users /opt/plexmediaserver /etc/conf.d/plexmediaserver && \
