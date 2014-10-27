@@ -24,15 +24,15 @@ RUN pacman -Sy --noconfirm && \
 	packer -S plex-media-server --noconfirm && \
 	pacman -Ru base-devel --noconfirm && \
 	pacman -Scc --noconfirm && \
-	chown -R nobody:users /opt/plexmediaserver /etc/conf.d/plexmediaserver && \
-	chmod -R 775 /opt/plexmediaserver /etc/conf.d/plexmediaserver && \	
+	chown -R nobody:users /usr/bin/plexmediaserver.sh /etc/conf.d/plexmediaserver && \
+	chmod -R 775 /usr/bin/plexmediaserver.sh /etc/conf.d/plexmediaserver && \	
 	rm -rf /archlinux/usr/share/locale && \
 	rm -rf /archlinux/usr/share/man && \
 	rm -rf /root/* && \
 	rm -rf /tmp/*
 	
 # customize app config file
-RUN sed -i 's/cd \${PLEX_MEDIA_SERVER_HOME}; su -c \"\${PLEX_MEDIA_SERVER_HOME}\/Plex\\ Media\\ Server \&\" \${PLEX_MEDIA_SERVER_USER}/cd \${PLEX_MEDIA_SERVER_HOME}; \"\${PLEX_MEDIA_SERVER_HOME}\/Plex Media Server\"/g' /opt/plexmediaserver/start_pms
+RUN sed -i 's/cd \${PLEX_MEDIA_SERVER_HOME}; su -c \"\${PLEX_MEDIA_SERVER_HOME}\/Plex\\ Media\\ Server \&\" \${PLEX_MEDIA_SERVER_USER}/cd \${PLEX_MEDIA_SERVER_HOME}; \"\${PLEX_MEDIA_SERVER_HOME}\/Plex Media Server\"/g' /usr/bin/plexmediaserver.sh
 
 # add in custom config file
 ADD plexmediaserver /etc/conf.d/plexmediaserver
