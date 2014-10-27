@@ -24,8 +24,8 @@ RUN pacman -Sy --noconfirm && \
 	packer -S plex-media-server --noconfirm && \
 	pacman -Ru base-devel --noconfirm && \
 	pacman -Scc --noconfirm && \
-	chown -R nobody:users /usr/bin/plexmediaserver.sh /etc/conf.d/plexmediaserver && \
-	chmod -R 775 /usr/bin/plexmediaserver.sh /etc/conf.d/plexmediaserver && \	
+	chown -R nobody:users /var/lib/plex /usr/bin/plexmediaserver.sh /etc/conf.d/plexmediaserver && \
+	chmod -R 775 /var/lib/plex /usr/bin/plexmediaserver.sh /etc/conf.d/plexmediaserver && \
 	rm -rf /archlinux/usr/share/locale && \
 	rm -rf /archlinux/usr/share/man && \
 	rm -rf /root/* && \
