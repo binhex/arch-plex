@@ -1,26 +1,8 @@
-#!/bin/bash
-
-# the user plex runs as 
 PLEX_MEDIA_SERVER_USER=nobody
-
-# the home directory for plex
 PLEX_MEDIA_SERVER_HOME=/opt/plexmediaserver
-
-# the number of plugins that can run at the same time
-PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=6
-
-# ulimit -s $PLEX_MEDIA_SERVER_MAX_STACK_SIZE
-PLEX_MEDIA_SERVER_MAX_STACK_SIZE=3000
-
-# where the mediaserver should store the transcodes
-PLEX_MEDIA_SERVER_TMPDIR=/var/tmp
-
-# Change this to be what you like
 PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="/config/Library/Application Support"
-
-# Logs live in /opt/plexmediaserver/Library/Application Support/Plex Media Server/Logs
-# Uncomment this to send to syslog-ng
-#PLEX_MEDIA_SERVER_USE_SYSLOG=true
+PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=6
+PLEX_MEDIA_SERVER_TMPDIR=/config
 
 # check if library exists on /config, if not copy default library
 if [ -d "/config/Library" ]; then
@@ -30,6 +12,6 @@ if [ -d "/config/Library" ]; then
 else
 	
 	# copy default library to /config
-	cp -R /opt/plexmediaserver/Library /config
+	cp -R /var/lib/plex /config
 	
 fi
