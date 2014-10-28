@@ -32,10 +32,7 @@ RUN pacman -Sy --noconfirm && \
 	rm -rf /tmp/*
 	
 # add custom environment file for application
-ADD plexmediaserver /etc/conf.d/plexmediaserver
-
-# remove env variable set for LC_ALL (cannot set in arch linux)
-RUN sed -i "s/export LC_ALL='en_US.UTF-8'/export LC_ALL=/g" /usr/bin/plexmediaserver.sh
+ADD plexmediaserver.sh /usr/bin/plexmediaserver.sh
 	
 # docker settings
 #################
