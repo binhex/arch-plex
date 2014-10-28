@@ -1,17 +1,11 @@
-PLEX_MEDIA_SERVER_USER=nobody
-PLEX_MEDIA_SERVER_HOME=/opt/plexmediaserver
-PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR="/config/Library/Application Support"
-PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=6
-PLEX_MEDIA_SERVER_TMPDIR=/config
+#!/bin/sh
 
-# check if library exists on /config, if not copy default library
-if [ -d "/config/Library" ]; then
+#set env variables (used in /usr/bin/plexmediaserver.sh script)
+export PLEX_MEDIA_SERVER_USER=nobody
+export PLEX_MEDIA_SERVER_HOME=/opt/plexmediaserver
+export PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR=/var/lib/plex
+export PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=6
+export PLEX_MEDIA_SERVER_TMPDIR=/config/tmp
 
-	echo "library exists"
-	
-else
-	
-	# copy default library to /config
-	cp -R /var/lib/plex /config
-	
-fi
+#set home directory (will auto create library files on start of "Plex Media Server")
+export HOME="/config/Library/Application Support"
