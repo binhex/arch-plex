@@ -35,7 +35,7 @@ RUN pacman -Sy --noconfirm && \
 ADD plexmediaserver /etc/conf.d/plexmediaserver
 
 # remove env variable set for LC_ALL
-RUN sed -i 's/export LC_ALL=\'en_US.UTF-8\'/export LC_ALL=/g' /usr/bin/plexmediaserver.sh
+RUN sed -i "s/export LC_ALL='en_US.UTF-8'/export LC_ALL=/g" /usr/bin/plexmediaserver.sh
 	
 # docker settings
 #################
