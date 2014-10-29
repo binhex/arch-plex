@@ -8,8 +8,8 @@ export PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=6
 export PLEX_MEDIA_SERVER_TMPDIR=/config/tmp
 
 #set env variables (replaces plexmediaserver.sh)
-export LANG='en_US.UTF-8'
-export LC_ALL='en_US.UTF-8'
+export LANG='en_GB.UTF-8'
+export LC_ALL='en_GB.UTF-8'
 export LD_LIBRARY_PATH=/opt/plexmediaserver
 export TMPDIR=/config/tmp
 
