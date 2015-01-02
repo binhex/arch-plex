@@ -19,9 +19,12 @@ RUN pacman -Sy --noconfirm && \
 	cd /tmp && \
 	tar -xzf packer.tar.gz && \
 	cd /tmp/packer && \
-	su -c "makepkg -s --noconfirm  --needed" - makepkg-user && \
+	useradd -m -g wheel -s /bin/bash makepkg_user && \
+	echo -e "makepkg_password\nmakepkg_password" | passwd makepkg_user && \
+	echo "Defaults:makepkg_user      !authenticate" >> /etc/sudoers && \
+	su -c "makepkg -s --noconfirm --needed" - makepkg_user && \
 	pacman -U /tmp/packer/packer*.tar.xz --noconfirm && \
-	packer -S plex-media-server --noconfirm && \
+	su -c "packer -S plex-media-server --noconfirm" - makepkg_user && \
 	pacman -Ru base-devel --noconfirm && \
 	pacman -Scc --noconfirm && \
 	chown -R nobody:users /var/lib/plex /etc/conf.d/plexmediaserver /opt/plexmediaserver/ && \
