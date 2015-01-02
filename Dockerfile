@@ -1,11 +1,11 @@
-FROM binhex/arch-base:2014101300
+FROM binhex/arch-base:2015010200
 MAINTAINER binhex
 
 # additional files
 ##################
 
 # download packer from aur
-ADD https://aur.archlinux.org/packages/pa/packer/packer.tar.gz /root/packer.tar.gz
+ADD https://aur.archlinux.org/packages/pa/packer/packer.tar.gz /tmp/packer.tar.gz
 
 # add supervisor file for application
 ADD plexmediaserver.conf /etc/supervisor/conf.d/plexmediaserver.conf
@@ -16,11 +16,11 @@ ADD plexmediaserver.conf /etc/supervisor/conf.d/plexmediaserver.conf
 # install base devel, install app using packer, set perms, cleanup
 RUN pacman -Sy --noconfirm && \
 	pacman -S --needed base-devel --noconfirm && \
-	cd /root && \
+	cd /tmp && \
 	tar -xzf packer.tar.gz && \
-	cd /root/packer && \
-	makepkg -s --asroot --noconfirm && \
-	pacman -U /root/packer/packer*.tar.xz --noconfirm && \
+	cd /tmp/packer && \
+	su -c "makepkg -s --noconfirm  --needed" - makepkg-user && \
+	pacman -U /tmp/packer/packer*.tar.xz --noconfirm && \
 	packer -S plex-media-server --noconfirm && \
 	pacman -Ru base-devel --noconfirm && \
 	pacman -Scc --noconfirm && \
