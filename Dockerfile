@@ -19,7 +19,7 @@ RUN pacman -Sy --noconfirm && \
 	curl -o /home/makepkg_user/packer.tar.gz https://aur.archlinux.org/packages/pa/packer/packer.tar.gz && \
 	cd /home/makepkg_user && \
 	tar -xvf packer.tar.gz && \
-	su -c "makepkg -s --noconfirm --needed" - makepkg_user && \
+	su -c "cd /home/makepkg_user/packer && makepkg -s --noconfirm --needed" - makepkg_user && \
 	pacman -U /home/makepkg_user/packer/packer*.tar.xz --noconfirm && \
 	su -c "packer -S plex-media-server --noconfirm" - makepkg_user && \
 	chown -R nobody:users /var/lib/plex /etc/conf.d/plexmediaserver /opt/plexmediaserver/ && \
