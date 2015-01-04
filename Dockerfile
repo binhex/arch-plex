@@ -15,6 +15,7 @@ RUN pacman -Sy --noconfirm && \
 	pacman -S --needed base-devel --noconfirm && \
 	useradd -m -g wheel -s /bin/bash makepkg_user && \
 	echo -e "makepkg_password\nmakepkg_password" | passwd makepkg_user && \
+	echo "%wheel      ALL=(ALL) ALL" >> /etc/sudoers && \
 	echo "Defaults:makepkg_user      !authenticate" >> /etc/sudoers && \
 	curl -o /home/makepkg_user/packer.tar.gz https://aur.archlinux.org/packages/pa/packer/packer.tar.gz && \
 	cd /home/makepkg_user && \
