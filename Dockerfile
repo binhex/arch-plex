@@ -28,8 +28,8 @@ RUN pacman -Sy --noconfirm && \
 	pacman -Ru packer base-devel git --noconfirm && \
 	yes|pacman -Scc && \
 	userdel -r makepkg-user && \
-	rm -rf /usr/share/locale && \
-	rm -rf /usr/share/man && \
+	rm -rf /usr/share/locale/* && \
+	rm -rf /usr/share/man/* && \
 	rm -rf /root/* && \
 	rm -rf /tmp/*
 	
