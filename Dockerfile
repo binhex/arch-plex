@@ -1,4 +1,4 @@
-FROM binhex/arch-base:2015010200
+FROM binhex/arch-base:2015010500
 MAINTAINER binhex
 
 # additional files
@@ -13,23 +13,24 @@ ADD plexmediaserver.conf /etc/supervisor/conf.d/plexmediaserver.conf
 # install base devel, install app using packer, set perms, cleanup
 RUN pacman -Sy --noconfirm && \
 	pacman -S --needed base-devel --noconfirm && \
-	useradd -m -g wheel -s /bin/bash makepkg_user && \
-	echo -e "makepkg_password\nmakepkg_password" | passwd makepkg_user && \
+	useradd -m -g wheel -s /bin/bash makepkg-user && \
+	echo -e "makepkg-password\nmakepkg-password" | passwd makepkg-user && \
 	echo "%wheel      ALL=(ALL) ALL" >> /etc/sudoers && \
-	echo "Defaults:makepkg_user      !authenticate" >> /etc/sudoers && \
-	curl -o /home/makepkg_user/packer.tar.gz https://aur.archlinux.org/packages/pa/packer/packer.tar.gz && \
-	cd /home/makepkg_user && \
+	echo "Defaults:makepkg-user      !authenticate" >> /etc/sudoers && \
+	curl -o /home/makepkg-user/packer.tar.gz https://aur.archlinux.org/packages/pa/packer/packer.tar.gz && \
+	cd /home/makepkg-user && \
 	tar -xvf packer.tar.gz && \
-	su -c "cd /home/makepkg_user/packer && makepkg -s --noconfirm --needed" - makepkg_user && \
-	pacman -U /home/makepkg_user/packer/packer*.tar.xz --noconfirm && \
-	su -c "packer -S plex-media-server --noconfirm" - makepkg_user && \
+	su -c "cd /home/makepkg-user/packer && makepkg -s --noconfirm --needed" - makepkg-user && \
+	pacman -U /home/makepkg-user/packer/packer*.tar.xz --noconfirm && \
+	su -c "packer -S plex-media-server --noconfirm" - makepkg-user && \	
 	chown -R nobody:users /var/lib/plex /etc/conf.d/plexmediaserver /opt/plexmediaserver/ && \
 	chmod -R 775 /var/lib/plex /etc/conf.d/plexmediaserver /opt/plexmediaserver/ && \
-	pacman -Ru base-devel --noconfirm && \
-	pacman -Scc --noconfirm && \	
-	userdel -r makepkg_user && \
-	rm -rf /archlinux/usr/share/locale && \
-	rm -rf /archlinux/usr/share/man && \
+	pacman -Ru packer base-devel git --noconfirm && \
+	yes|pacman -Scc && \
+	userdel -r makepkg-user && \
+	rm -rf /usr/share/locale && \
+	rm -rf /usr/share/man && \
+	rm -rf /root/* && \
 	rm -rf /tmp/*
 	
 # add custom environment file for application
