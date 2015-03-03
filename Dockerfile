@@ -1,41 +1,27 @@
-FROM binhex/arch-base:2015010500
+FROM binhex/arch-base:2015030300
 MAINTAINER binhex
 
 # additional files
 ##################
 
+# add custom environment file for application
+ADD plexmediaserver.sh /home/nobody/plexmediaserver.sh
+
 # add supervisor file for application
 ADD plexmediaserver.conf /etc/supervisor/conf.d/plexmediaserver.conf
+
+# add install bash script
+ADD install.sh /root/install.sh
+
+# add packer bash script
+ADD packer.sh /root/packer.sh
 
 # install app
 #############
 
-# install base devel, install app using packer, set perms, cleanup
-RUN pacman -Sy --noconfirm && \
-	pacman -S --needed base-devel --noconfirm && \
-	useradd -m -g wheel -s /bin/bash makepkg-user && \
-	echo -e "makepkg-password\nmakepkg-password" | passwd makepkg-user && \
-	echo "%wheel      ALL=(ALL) ALL" >> /etc/sudoers && \
-	echo "Defaults:makepkg-user      !authenticate" >> /etc/sudoers && \
-	curl -o /home/makepkg-user/packer.tar.gz https://aur.archlinux.org/packages/pa/packer/packer.tar.gz && \
-	cd /home/makepkg-user && \
-	tar -xvf packer.tar.gz && \
-	su -c "cd /home/makepkg-user/packer && makepkg -s --noconfirm --needed" - makepkg-user && \
-	pacman -U /home/makepkg-user/packer/packer*.tar.xz --noconfirm && \
-	su -c "packer -S plex-media-server --noconfirm" - makepkg-user && \	
-	chown -R nobody:users /var/lib/plex /etc/conf.d/plexmediaserver /opt/plexmediaserver/ && \
-	chmod -R 775 /var/lib/plex /etc/conf.d/plexmediaserver /opt/plexmediaserver/ && \
-	pacman -Ru packer base-devel git --noconfirm && \
-	yes|pacman -Scc && \
-	userdel -r makepkg-user && \
-	rm -rf /usr/share/locale/* && \
-	rm -rf /usr/share/man/* && \
-	rm -rf /root/* && \
-	rm -rf /tmp/*
-	
-# add custom environment file for application
-ADD plexmediaserver.sh /usr/bin/plexmediaserver.sh
-RUN chmod +x /usr/bin/plexmediaserver.sh
+# make executable and run bash scripts to install app
+RUN chmod +x /root/install.sh /root/packer.sh /home/nobody/plexmediaserver.sh && \
+	/bin/bash /root/install.sh
 	
 # docker settings
 #################
