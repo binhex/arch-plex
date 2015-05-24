@@ -1,3 +1,2 @@
-[info] Sun May 24 20:39:07 BST 2015 Plex Media Server updated to ver -
--
-0.9.12.1.1079-1
+[info] Sun May 24 20:44:05 BST 2015 Plex Media Server updated to ver 0.9.12.1.1079
+1
