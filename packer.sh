@@ -15,6 +15,10 @@ echo -e "makepkg-password\nmakepkg-password" | passwd makepkg-user
 echo "%wheel      ALL=(ALL) ALL" >> /etc/sudoers
 echo "Defaults:makepkg-user      !authenticate" >> /etc/sudoers
 
+# set permissions for "makepkg-user"
+chmod -R 775 /home/makepkg-user
+chown -R makepkg-user /home/makepkg-user
+
 # download packer
 curl -o /home/makepkg-user/packer-color.tar.gz https://aur4.archlinux.org/cgit/aur.git/snapshot/packer-color.tar.gz
 cd /home/makepkg-user
