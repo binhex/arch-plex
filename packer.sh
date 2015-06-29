@@ -16,19 +16,19 @@ echo "%wheel      ALL=(ALL) ALL" >> /etc/sudoers
 echo "Defaults:makepkg-user      !authenticate" >> /etc/sudoers
 
 # download packer
-curl -o /home/makepkg-user/packer.tar.gz https://aur.archlinux.org/packages/pa/packer-color/packer-color.tar.gz
+curl -o /home/makepkg-user/packer-color.tar.gz https://aur4.archlinux.org/cgit/aur.git/snapshot/packer-color.tar.gz
 cd /home/makepkg-user
-tar -xvf packer.tar.gz
+tar -xvf packer-color.tar.gz
 
 # install packer
 su -c "cd /home/makepkg-user/packer-color && makepkg -s --noconfirm --needed" - makepkg-user
 pacman -U /home/makepkg-user/packer-color/packer*.tar.xz --noconfirm
 
 # install app from aur
-su -c "packer -S $packer_packages --noconfirm" - makepkg-user
+su -c "packer-color -S $packer_packages --noconfirm" - makepkg-user
 
 # remove base devel tools and packer
-pacman -Ru packer base-devel git --noconfirm
+pacman -Ru packer-color base-devel git --noconfirm
 
 # delete makepkg-user account
 userdel -r makepkg-user
