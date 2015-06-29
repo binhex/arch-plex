@@ -16,7 +16,7 @@ echo "%wheel      ALL=(ALL) ALL" >> /etc/sudoers
 echo "Defaults:makepkg-user      !authenticate" >> /etc/sudoers
 
 # download packer
-curl -o /home/makepkg-user/packer.tar.gz https://aur.archlinux.org/packages/pa/packer/packer.tar.gz
+curl -o /home/makepkg-user/packer.tar.gz https://aur.archlinux.org/packages/pa/packer-color/packer-color.tar.gz
 cd /home/makepkg-user
 tar -xvf packer.tar.gz
 
