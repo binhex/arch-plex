@@ -22,7 +22,7 @@ chown -R makepkg-user /home/makepkg-user
 # download packer
 curl -o /home/makepkg-user/packer-color.tar.gz https://aur4.archlinux.org/cgit/aur.git/snapshot/packer-color.tar.gz
 cd /home/makepkg-user
-tar -xvf packer-color.tar.gz
+tar -xvf packer-color.tar.gz --no-same-permissions
 
 # install packer
 su -c "cd /home/makepkg-user/packer-color && makepkg -s --noconfirm --needed" - makepkg-user
