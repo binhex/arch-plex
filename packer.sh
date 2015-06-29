@@ -15,17 +15,13 @@ echo -e "makepkg-password\nmakepkg-password" | passwd makepkg-user
 echo "%wheel      ALL=(ALL) ALL" >> /etc/sudoers
 echo "Defaults:makepkg-user      !authenticate" >> /etc/sudoers
 
-# switch to "makepkg-user" to makepkg
-su - makepkg-user
-
 # download packer
 curl -o /home/makepkg-user/packer-color.tar.gz https://aur4.archlinux.org/cgit/aur.git/snapshot/packer-color.tar.gz
 cd /home/makepkg-user
-tar -xvf packer-color.tar.gz
+su -c "tar -xvf packer-color.tar.gz" - makepkg-user
 
 # install packer
-cd /home/makepkg-user/packer-color && makepkg -s --noconfirm --needed
-exit
+su -c "cd /home/makepkg-user/packer-color && makepkg -s --noconfirm --needed" - makepkg-user
 pacman -U /home/makepkg-user/packer-color/packer*.tar.xz --noconfirm
 
 # install app from aur
