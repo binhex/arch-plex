@@ -24,7 +24,7 @@ su -c "tar -xvf packer-color.tar.gz" - makepkg-user
 su -c "cd /home/makepkg-user/packer-color && makepkg -s --noconfirm --needed" - makepkg-user
 pacman -U /home/makepkg-user/packer-color/packer*.tar.xz --noconfirm
 
-# install app from aur
+# install app using packer
 su -c "packer-color -S $packer_packages --noconfirm" - makepkg-user
 
 # remove base devel tools and packer
