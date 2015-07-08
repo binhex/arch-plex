@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# exit script if return code != 0
+set -e
+
 # install pre-reqs
 pacman -Sy --noconfirm
 
