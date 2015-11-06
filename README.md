@@ -1,4 +1,4 @@
-# Plex Media Server (free edition)
+# Plex Media Server (free edition)  
 [Application website](https://plex.tv/)
 
 **Description**<br>
