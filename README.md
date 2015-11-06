@@ -4,7 +4,7 @@
 **Description**<br>
 Latest stable Plex Media Server release from Arch Linux AUR using Packer to compile.
 
-**Usage**
+**Usage**  
 ```
 docker run -d \
 	--net="host" \
