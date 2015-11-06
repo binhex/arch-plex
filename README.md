@@ -1,7 +1,7 @@
 # Plex Media Server (free edition)
-[Official website](https://plex.tv/)
+[Application website](https://plex.tv/)
 
-## Description
+**Description**<br>
 Latest stable Plex Media Server release from Arch Linux AUR using Packer to compile.
 
 **Usage**
@@ -22,6 +22,5 @@ http://<host ip>:32400/web
 **Notes**<br>
 You cannot specify the port this docker container uses, it requires full access to the hosts nic and thus the -p flag is ignored.
 
-**Support**<br>
 [Support forum](http://lime-technology.com/forum/index.php?topic=38055.0)
 
