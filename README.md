@@ -17,10 +17,9 @@ docker run -d \
 ```
 Please replace all user variables in the above command defined by <> with the correct values.
 
-**Access application**
-```
-http://<host ip>:32400/web
-```
+**Access application**<br>
 
-**Notes**
+http://<host ip>:32400/web
+
+**Notes**<br>
 You cannot specify the port this docker container uses, it requires full access to the hosts nic and thus the -p flag is ignored.
