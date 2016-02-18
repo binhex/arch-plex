@@ -7,7 +7,7 @@ set -e
 pacman_packages="base-devel"
 
 # define packer packages
-packer_packages="plex-media-server"
+packer_packages="prelink plex-media-server"
 
 # install required pre-reqs for makepkg
 pacman -S --needed $pacman_packages --noconfirm
