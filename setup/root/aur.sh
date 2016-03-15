@@ -3,34 +3,39 @@
 # exit script if return code != 0
 set -e
 
-# define pacman packages
-pacman_packages="base-devel"
+# define aur helper
+aur_helper="packer"
 
 # define packer packages
-packer_packages="prelink plex-media-server"
-
-# install required pre-reqs for makepkg
-pacman -S --needed $pacman_packages --noconfirm
+aur_packages="prelink plex-media-server"
 
 # create "makepkg-user" user for makepkg
 useradd -m -s /bin/bash makepkg-user
 echo -e "makepkg-password\nmakepkg-password" | passwd makepkg-user
 echo "makepkg-user ALL=(ALL) NOPASSWD: ALL" | (EDITOR="tee -a" visudo)
 
-# download packer
-curl -o /home/makepkg-user/packer.tar.gz https://aur.archlinux.org/cgit/aur.git/snapshot/apacman.tar.gz
-cd /home/makepkg-user
-su -c "tar -xvf packer.tar.gz" - makepkg-user
+# download aur helper (patched version for rpc v5)
+curl -L -o "/usr/bin/$aur_helper" "https://github.com/binhex/arch-patches/raw/master/arch-packer/$aur_helper"
+chmod a+x "/usr/bin/$aur_helper"
+pacman -S --needed jansson expac jshon --noconfirm
 
-# install packer
-su -c "cd /home/makepkg-user/packer && makepkg -s --noconfirm --needed" - makepkg-user
-pacman -U /home/makepkg-user/packer/packer*.tar.xz --noconfirm
+# download aur helper
+# curl -L -o "/home/makepkg-user/$aur_helper.tar.gz" "https://aur.archlinux.org/cgit/aur.git/snapshot/$aur_helper.tar.gz"
+# cd /home/makepkg-user
+# su -c "tar -xvf $aur_helper.tar.gz" - makepkg-user
 
-# install app using packer
-su -c "packer -S $packer_packages --noconfirm" - makepkg-user
+# install aur helper
+# su -c "cd /home/makepkg-user/$aur_helper && makepkg -s --noconfirm --needed" - makepkg-user
+# pacman -U "/home/makepkg-user/$aur_helper/$aur_helper*.tar.xz" --noconfirm
 
-# remove base devel tools and packer
-pacman -Ru base-devel git --noconfirm
+# install app using aur helper
+su -c "$aur_helper -S $aur_packages --noconfirm" - makepkg-user
 
-# delete makepkg-user account
+# remove base devel excluding useful core packages
+pacman -Ru $(pacman -Qgq base-devel | grep -v pacman | grep -v sed | grep -v grep | grep -v gzip) --noconfirm
+
+# remove git
+pacman -Ru git --noconfirm
+
+# remove makepkg-user account
 userdel -r makepkg-user
