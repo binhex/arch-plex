@@ -8,17 +8,6 @@ export PLEX_MEDIA_SERVER_HOME='/opt/plexmediaserver'
 export PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR='/config'
 export PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS='6'
 
-# if transcode temporary folder not set then use default
-if [[ -z "${TRANS_DIR}" ]]; then
-	mkdir -p /config/tmp
-	export PLEX_MEDIA_SERVER_TMPDIR='/config/tmp'
-	export TMPDIR='/config/tmp'
-else
-	mkdir -p "${TRANS_DIR}"
-	export PLEX_MEDIA_SERVER_TMPDIR="${TRANS_DIR}"
-	export TMPDIR="${TRANS_DIR}"
-fi
-
 # set language variables (required for plex) must be same as locale set in base image
 export LANG='en_GB.UTF-8'
 export LC_ALL='en_GB.UTF-8'
