@@ -19,7 +19,7 @@ mv /tmp/scripts-master/shell/arch/docker/*.sh /root/
 ####
 
 # define pacman packages
-pacman_packages=""
+pacman_packages="git systemd libx264 libvpx openjpeg"
 
 # install compiled packages using pacman
 if [[ ! -z "${pacman_packages}" ]]; then
@@ -39,7 +39,7 @@ source /root/aor.sh
 ####
 
 # define aur packages
-aur_packages="prelink plex-media-server"
+aur_packages="ffmpeg-headless prelink plex-media-server"
 
 # call aur install script (arch user repo)
 source /root/aur.sh
