@@ -39,7 +39,7 @@ source /root/aor.sh
 ####
 
 # define aur packages
-aur_packages="ffmpeg-headless prelink plex-media-server"
+aur_packages="ffmpeg-headless plex-media-server"
 
 # call aur install script (arch user repo)
 source /root/aur.sh
