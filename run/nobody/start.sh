@@ -4,7 +4,7 @@
 
 # set env variables for plex
 export PLEX_MEDIA_SERVER_USER='nobody'
-export PLEX_MEDIA_SERVER_HOME='/opt/plexmediaserver'
+export PLEX_MEDIA_SERVER_HOME='/usr/lib/plexmediaserver'
 export PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR='/config'
 export PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS='6'
 
