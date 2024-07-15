@@ -1,6 +1,6 @@
 FROM binhex/arch-base:latest
-LABEL org.opencontainers.image.authors = "binhex"
-LABEL org.opencontainers.image.source = "https://github.com/binhex/arch-plex"
+LABEL org.opencontainers.image.authors="binhex"
+LABEL org.opencontainers.image.source="https://github.com/binhex/arch-plex"
 
 # release tag name from buildx arg
 ARG RELEASETAG
